@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Balance from './Components/Balance';
+import Form from './Components/Form';
+import Transection from './Components/Transection'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+            <div className="header">
+                <h1>Expense Tracker</h1>
+            </div>
+
+            <div className="main">
+                <div className="container">
+                    <Balance />
+
+                   <Form/>
+
+                    <p className="second_heading">Your Transactions:</p>
+                    <Transection/>
+                    
+                </div>
+            </div>
+
+            <div className="footer">&copy;2022 Learn with Sumit</div>
+        </div>
   );
 }
 
