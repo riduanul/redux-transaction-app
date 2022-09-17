@@ -6,27 +6,29 @@ const initialState = {
     transactions : [],
     isLoading: false,
     isError: false,
-    error:''
+    error:'',
+    editing:{}
 }
 
-export const fetchTransactions = createAsyncThunk("transactions/fetchTransactions", async()=> {
+export const fetchTransactions = createAsyncThunk("transactions/fetchTransactions", 
+async()=> {
     const transactions = await getTransaction();
     return transactions; 
 }) 
 export const createTransaction = createAsyncThunk("transactions/createTransaction",
  async(data)=> {
-    const transactions = await addTransaction(data);
-    return transactions; 
+    const transaction = await addTransaction(data);
+    return transaction; 
 }) 
-export const changeTransaction = createAsyncThunk("transactions/changeTransactions",
+export const changeTransaction = createAsyncThunk("transactions/changeTransaction",
  async({id, data})=> {
-    const transactions = await editTransaction(id, data);
-    return transactions; 
+    const transaction = await editTransaction(id, data);
+    return transaction; 
 }) 
 export const removeTransaction = createAsyncThunk("transactions/removeTransaction",
  async(id)=> {
-    const transactions = await deleteTransaction(id);
-    return transactions; 
+    const transaction = await deleteTransaction(id);
+    return transaction; 
 }) 
 
 
@@ -35,6 +37,14 @@ export const removeTransaction = createAsyncThunk("transactions/removeTransactio
 const transactionSlice = createSlice({
     name:"transaction",
     initialState,
+    reducers:{
+        editActive: (state, action) => {
+            state.editing = action.payload;
+        },
+        editInActive: (state) => {
+            state.editing = {};
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(fetchTransactions.pending, (state, action) => {
@@ -90,7 +100,7 @@ const transactionSlice = createSlice({
             state.isError = false;
             state.isLoading = false;
             
-            state.transactions = state.transactions.filter(t => t.id !== action.payload)
+            state.transactions = state.transactions.filter(t => t.id !== action.meta.arg)
         })
         .addCase(removeTransaction.rejected, (state, action) => {
             state.isLoading = false;
@@ -101,3 +111,4 @@ const transactionSlice = createSlice({
 })
 
 export default transactionSlice.reducer;
+export const {editActive, aditInActive} = transactionSlice.actions;

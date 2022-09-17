@@ -1,7 +1,7 @@
 import './App.css';
 import Balance from './Components/Balance';
 import Form from './Components/Form';
-import Transection from './Components/Transection'
+import Transactions from './Components/Transactions/Transactions'
 
 function App() {
   return (
@@ -16,8 +16,8 @@ function App() {
 
                    <Form/>
 
-                    <p className="second_heading">Your Transactions:</p>
-                    <Transection/>
+                   
+                    <Transactions />
                     
                 </div>
             </div>
